@@ -13,6 +13,7 @@ public:
 };
 
 class BinaryFileRecord {
+public:
   uint8_t strLength;
   char stringBuffer[maxRecordStringLength];
 };

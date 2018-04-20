@@ -7,6 +7,7 @@
  */
 
 #include <iostream>
+#include <fstream>
 #include "cdk.h"
 #include "program6.h"
 
@@ -30,6 +31,25 @@ int main()
   const char 		*columnTitles[MATRIX_WIDTH+1] = {"X", "a", "b", "c"};
   int		boxWidths[MATRIX_WIDTH+1] = {BOX_WIDTH, BOX_WIDTH, BOX_WIDTH, BOX_WIDTH};
   int		boxTypes[MATRIX_WIDTH+1] = {vMIXED, vMIXED, vMIXED, vMIXED};
+
+  
+  //Start with some file reading
+  ifstream infile;
+  infile.open("cs3377.bin", ios::in | ios::binary);
+  if(infile.is_open()) {
+    cout << "File open success!" << endl;
+  } else {
+    cerr << "Runtime error: Could not open cs3377.bin" << endl;
+    _exit(1);
+  }
+  
+  BinaryFileHeader *bfh = new BinaryFileHeader();
+  infile.read((char *) bfh, sizeof(BinaryFileRecord));
+  
+  //Output the values
+  cout << "Magic number: " << bfh->magicNumber << endl;
+  cout << "Version number: " << bfh->versionNumber << endl;
+  cout << "numRecords: " << bfh->numRecords << endl;
 
   /*
    * Initialize the Cdk screen.
@@ -58,15 +78,13 @@ int main()
   /* Display the Matrix */
   drawCDKMatrix(myMatrix, true);
 
-  /*
-   * Dipslay a message
-   */
+  //Set Matrix text here
   setCDKMatrixCell(myMatrix, 1, 2, "Hi");
   setCDKMatrixCell(myMatrix, 2, 2, "Test Message");
   drawCDKMatrix(myMatrix, true);    /* required  */
 
   /* so we can see results */
-  sleep (10);
+  sleep (15);
 
 
   // Cleanup screen
