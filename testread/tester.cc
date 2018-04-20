@@ -38,7 +38,11 @@ int main()
   
   BinaryFileHeader *bfh = new BinaryFileHeader();
   //for (int i = 0; i < 3; i++)
-    infile.read((char *) bfh, sizeof(BinaryFileHeader));
+  infile.read((char *) bfh, sizeof(BinaryFileHeader));
+  //int magicNumber = bfh->magicNumber;
+  cout << "Magic: " << bfh->magicNumber << endl;
+  cout << "Version: " << bfh->versionNumber << endl;
+  cout << "NumRecords: " << bfh->numRecords << endl;
   
   BinaryFileRecord *bfr = new BinaryFileRecord();
   while(infile.read((char *) bfr, sizeof(BinaryFileRecord))){
@@ -47,6 +51,10 @@ int main()
     cout << "strlen: " << magicWord.length() << endl;
     cout << "Record: " << magicWord << endl;
   }
+
+  //infile.read((char *) bfh, sizeof(BinaryFileHeader));
+  //int magicNumber = bfh->magicNumber;
+  //cout << "Magic: " << magicNumber << endl;
 
   /*  string magicNumber;
   ostringstream dirtyConverter;
