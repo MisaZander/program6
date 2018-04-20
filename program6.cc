@@ -47,7 +47,7 @@ int main()
   }
   
   BinaryFileHeader *bfh = new BinaryFileHeader();
-  infile.read((char *) bfh, sizeof(BinaryFileRecord));
+  infile.read((char *) bfh, sizeof(BinaryFileHeader));
   
   //Output the values
   //cout << "Magic number: " << hex << showbase << bfh->magicNumber << endl;
@@ -103,12 +103,13 @@ int main()
 
   //Read the records
   BinaryFileRecord *bfr = new BinaryFileRecord();
-  //int index = 2;
+  int index = 2;
   
-  /*while(infile.read((char *) bfr, sizeof(BinaryFileRecord))){
+  while(infile.read((char *) bfr, sizeof(BinaryFileRecord))){
     //Set left cell
     cleanerConverter.str(""); //Clear out the sstream object
-    cleanerConverter << "strlen: " << bfr->strLength;
+    magicWord = bfr->stringBuffer;
+    cleanerConverter << "strlen: " << magicWord.length();
     magicWord = cleanerConverter.str();
     setCDKMatrixCell(myMatrix, index, 1, magicWord.c_str());
 
@@ -118,7 +119,7 @@ int main()
     index++;
     if(index > 5)
       break;
-      }*/
+  }
 
   drawCDKMatrix(myMatrix, true);    /* required  */
 
