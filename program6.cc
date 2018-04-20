@@ -82,7 +82,7 @@ int main()
   /* Display the Matrix */
   drawCDKMatrix(myMatrix, true);
 
-  //Set Matrix text here
+  //Set Matrix header text here
 
   string magicNumber;
   ostringstream dirtyConverter;
@@ -100,6 +100,25 @@ int main()
   cleanerConverter << "NumRecords: " << bfh->numRecords;
   magicWord = cleanerConverter.str();
   setCDKMatrixCell(myMatrix, 1, 3, magicWord.c_str());
+
+  //Read the records
+  BinaryFileRecord *bfr = new BinaryFileRecord();
+  //int index = 2;
+  
+  /*while(infile.read((char *) bfr, sizeof(BinaryFileRecord))){
+    //Set left cell
+    cleanerConverter.str(""); //Clear out the sstream object
+    cleanerConverter << "strlen: " << bfr->strLength;
+    magicWord = cleanerConverter.str();
+    setCDKMatrixCell(myMatrix, index, 1, magicWord.c_str());
+
+    //Set right (middle) cell
+    setCDKMatrixCell(myMatrix, index, 2, bfr->stringBuffer);
+
+    index++;
+    if(index > 5)
+      break;
+      }*/
 
   drawCDKMatrix(myMatrix, true);    /* required  */
 
