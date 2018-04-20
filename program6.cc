@@ -8,13 +8,16 @@
 
 #include <iostream>
 #include <fstream>
+#include <iomanip>
+#include <string>
+#include <sstream>
 #include "cdk.h"
 #include "program6.h"
 
 
 #define MATRIX_WIDTH 3
 #define MATRIX_HEIGHT 5
-#define BOX_WIDTH 15
+#define BOX_WIDTH 25
 #define MATRIX_NAME_STRING "Enter the Matrix"
 
 using namespace std;
@@ -47,9 +50,10 @@ int main()
   infile.read((char *) bfh, sizeof(BinaryFileRecord));
   
   //Output the values
-  cout << "Magic number: " << bfh->magicNumber << endl;
-  cout << "Version number: " << bfh->versionNumber << endl;
-  cout << "numRecords: " << bfh->numRecords << endl;
+  //cout << "Magic number: " << hex << showbase << bfh->magicNumber << endl;
+  //cout.unsetf(ios::hex); cout.unsetf(ios::showbase);
+  //cout << "Version number: " << bfh->versionNumber << endl;
+  //cout << "numRecords: " << bfh->numRecords << endl;
 
   /*
    * Initialize the Cdk screen.
@@ -79,8 +83,24 @@ int main()
   drawCDKMatrix(myMatrix, true);
 
   //Set Matrix text here
-  setCDKMatrixCell(myMatrix, 1, 2, "Hi");
-  setCDKMatrixCell(myMatrix, 2, 2, "Test Message");
+
+  string magicNumber;
+  ostringstream dirtyConverter;
+  dirtyConverter << "Magic: 0x" << hex << uppercase << bfh->magicNumber;
+  magicNumber = dirtyConverter.str();
+  setCDKMatrixCell(myMatrix, 1, 1, magicNumber.c_str());
+  
+  string magicWord;
+  ostringstream cleanConverter;
+  cleanConverter << "Version: " << bfh->versionNumber;
+  magicWord = cleanConverter.str();
+  setCDKMatrixCell(myMatrix, 1, 2, magicWord.c_str());
+
+  ostringstream cleanerConverter;
+  cleanerConverter << "NumRecords: " << bfh->numRecords;
+  magicWord = cleanerConverter.str();
+  setCDKMatrixCell(myMatrix, 1, 3, magicWord.c_str());
+
   drawCDKMatrix(myMatrix, true);    /* required  */
 
   /* so we can see results */
