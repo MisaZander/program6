@@ -1,10 +1,6 @@
-/*
- * Usage of CDK Matrix
- *
- * File:   example1.cc
- * Author: Stephen Perkins
- * Email:  stephen.perkins@utdallas.edu
- */
+//Programmed by: Alexander Osborn
+//email: axo095120@utdallas.edu
+//CS3377.002
 
 #include <iostream>
 #include <fstream>
@@ -40,21 +36,16 @@ int main()
   ifstream infile;
   infile.open("cs3377.bin", ios::in | ios::binary);
   if(infile.is_open()) {
-    cout << "File open success!" << endl;
+    //cout << "File open success!" << endl;
   } else {
     cerr << "Runtime error: Could not open cs3377.bin" << endl;
     _exit(1);
   }
   
+  //Read in the binary file header
   BinaryFileHeader *bfh = new BinaryFileHeader();
   infile.read((char *) bfh, sizeof(BinaryFileHeader));
   
-  //Output the values
-  //cout << "Magic number: " << hex << showbase << bfh->magicNumber << endl;
-  //cout.unsetf(ios::hex); cout.unsetf(ios::showbase);
-  //cout << "Version number: " << bfh->versionNumber << endl;
-  //cout << "numRecords: " << bfh->numRecords << endl;
-
   /*
    * Initialize the Cdk screen.
    *
@@ -84,6 +75,7 @@ int main()
 
   //Set Matrix header text here
 
+  //Display the header
   string magicNumber;
   ostringstream dirtyConverter;
   dirtyConverter << "Magic: 0x" << hex << uppercase << bfh->magicNumber;
